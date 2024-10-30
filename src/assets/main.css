@@ -1,0 +1,7 @@
+@import './base.css';
+
+header,
+main,
+footer {
+  margin-bottom: 20px;
+}
