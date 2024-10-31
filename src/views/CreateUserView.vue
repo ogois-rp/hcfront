@@ -57,13 +57,11 @@ import {
 	emailRules,
 	passwordRules,
 } from "@/utils/validationRules";
-// Adjust the path as necessary
 
-// Reactive state
 const fullName = ref("");
 const email = ref("");
 const password = ref("");
-const formValidity = ref(false); // To track the form validity
+const formValidity = ref(false);
 
 const userStore = useUserStore();
 
@@ -73,10 +71,9 @@ const passwordError = computed(() => passwordRules(password.value));
 
 const router = useRouter();
 
-// Alert state
 const showAlert = ref(false);
 const alertMessage = ref("");
-const alertType = ref("success"); // or "error"
+const alertType = ref("success");
 
 const handleSubmit = async () => {
 	try {
@@ -113,20 +110,18 @@ const handleAlertDismiss = () => {
 </script>
 
 <style scoped>
-/* Add any styles if needed */
 .header-container {
 	display: flex;
-	justify-content: space-between; /* Aligns the title and button on the same line */
-	align-items: center; /* Vertically center the items */
-	margin-bottom: 20px; /* Adds space below the header */
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .update-title {
-	flex-grow: 1; /* Allows the title to take available space, pushing the button to the right */
+	flex-grow: 1;
 }
 
-/* Add any additional styles needed for the alert */
 .narrow-alert {
-	max-width: 300px; /* Adjust the width as necessary */
+	max-width: 300px;
 }
 </style>

@@ -14,14 +14,12 @@ const props = defineProps<Props>();
 const formattedDate = computed(() => {
 	debugger;
 	const date = new Date(props.date);
-	const day = String(date.getDate()).padStart(2, "0"); // Get day and pad with leading zero
-	const month = String(date.getMonth() + 1).padStart(2, "0"); // Get month (0-indexed) and pad
-	const year = date.getFullYear(); // Get full year
+	const day = String(date.getDate()).padStart(2, "0");
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const year = date.getFullYear();
 
-	return `${day}/${month}/${year}`; // Return formatted date as dd/mm/yyyy
+	return `${day}/${month}/${year}`;
 });
 </script>
 
-<style scoped>
-/* Optional: Add any styles for the DateDisplay component here */
-</style>
+<style scoped></style>

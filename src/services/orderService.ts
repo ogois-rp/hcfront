@@ -10,7 +10,7 @@ export const getOrdersByUserId = async (
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching orders by user ID:", error);
-		throw error; // Return null in case of error
+		throw error;
 	}
 };
 
@@ -25,7 +25,7 @@ export const createOrder = async (orderData: {
 		const response = await axiosInstance.post("/orders", orderData);
 		return response.data;
 	} catch (error) {
-		throw error; // Return null in case of error
+		throw error;
 	}
 };
 
@@ -44,7 +44,7 @@ export const getOrderById = async (id: number): Promise<Order | null> => {
 		const response = await axiosInstance.get(`/order/${id}`);
 		return response.data;
 	} catch (error) {
-		throw error; // Return null in case of error
+		throw error;
 	}
 };
 
@@ -57,6 +57,6 @@ export const updateOrderById = async (
 		const response = await axiosInstance.put(`/order/${id}/edit`, updatedData);
 		return response.data;
 	} catch (error) {
-		throw error; // Return null in case of error
+		throw error;
 	}
 };

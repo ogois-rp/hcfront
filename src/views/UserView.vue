@@ -7,7 +7,6 @@
 			</RouterLink>
 		</div>
 
-		<!-- Single Alert for Success/Error -->
 		<CustomAlert
 			v-if="showAlert"
 			:message="alertMessage"
@@ -40,11 +39,9 @@
 			<v-btn @click="showModal = true" color="primary">Create New Order</v-btn>
 		</div>
 
-		<!-- Use CustomDataTable component here -->
 		<CustomDataTable :headers="headers" :items="orders">
 			<template #order_date="{ item }">
 				<DateDisplay :date="item.order_date" />
-				<!-- Format as needed -->
 			</template>
 			<template #actions="{ item }">
 				<v-icon
@@ -59,7 +56,6 @@
 			</template>
 		</CustomDataTable>
 
-		<!-- Modal for creating a new order -->
 		<v-dialog v-model="showModal" max-width="500px">
 			<v-card>
 				<v-card-title class="headline">Create New Order</v-card-title>
@@ -90,7 +86,6 @@
 			</v-card>
 		</v-dialog>
 
-		<!-- Modal for updating an order -->
 		<v-dialog v-model="showEditModal" max-width="500px">
 			<v-card>
 				<v-card-title class="headline">Update Order</v-card-title>
@@ -141,7 +136,6 @@ import {
 const userStore = useUserStore();
 const orderStore = useOrderStore();
 const route = useRoute();
-// Data for orders table
 const orders = computed(() => orderStore.orders);
 const headers = [
 	{ title: "Order ID", value: "id" },
@@ -168,7 +162,7 @@ const editOrder = ref({
 	orderDate: "",
 });
 
-const alertMessage = ref(""); // Alert message
+const alertMessage = ref("");
 const alertType = ref("success");
 
 const userId = Number(route.params.id);
@@ -184,16 +178,15 @@ const editOrderDateError = computed(() =>
 	orderDateRules(editOrder.value.orderDate)
 );
 
-// Open the edit order modal with the selected order details
 const openEditOrderModal = (item) => {
-	editOrder.value = { ...item }; // Populate the edit form with selected order details
-	showEditModal.value = true; // Show the edit modal
+	editOrder.value = { ...item };
+	showEditModal.value = true;
 };
 
 const handleAlertDismiss = () => {
 	setTimeout(() => {
 		showAlert.value = false;
-	}, 500); // Match the duration of the slide-out animation
+	}, 500);
 };
 
 const handleSubmit = async () => {
@@ -205,19 +198,19 @@ const handleSubmit = async () => {
 				email: email.value,
 			});
 			alertMessage.value = "User updated successfully!";
-			alertType.value = "success"; // Set alert type to success
-			showAlert.value = true; // Show alert
-			// Optionally, navigate back after a short delay
+			alertType.value = "success";
+			showAlert.value = true;
+
 			displayName.value = fullName.value;
 			setTimeout(() => {
 				handleAlertDismiss();
-			}, 2000); // Duration for the alert to be visible
+			}, 2000);
 		}
 	} catch (error) {
 		console.error("Error updating user:", error);
-		alertMessage.value = "Failed to update user. Please try again."; // Set error message
-		alertType.value = "error"; // Set alert type to error
-		showAlert.value = true; // Show alert
+		alertMessage.value = "Failed to update user. Please try again.";
+		alertType.value = "error";
+		showAlert.value = true;
 	}
 };
 
@@ -229,36 +222,34 @@ const handleCreateOrder = async () => {
 				product: newOrder.value.product,
 				orderDate: newOrder.value.orderDate,
 			});
-			showModal.value = false; // Close create order modal
-			await orderStore.fetchOrdersByUserId(userId); // Refresh orders
+			showModal.value = false;
+			await orderStore.fetchOrdersByUserId(userId);
 
-			// Show success alert
 			alertMessage.value = "Order created successfully!";
-			alertType.value = "success"; // Set alert type to success
-			showAlert.value = true; // Show alert
+			alertType.value = "success";
+			showAlert.value = true;
 		}
 	} catch (error) {
 		console.error("Error creating order:", error);
-		alertMessage.value = "Failed to create order. Please try again."; // Set error message
-		alertType.value = "error"; // Set alert type to error
-		showAlert.value = true; // Show alert
+		alertMessage.value = "Failed to create order. Please try again.";
+		alertType.value = "error";
+		showAlert.value = true;
 	}
 };
 
 const handleDeleteOrder = async (id: number) => {
 	try {
 		await orderStore.deleteOrder(id);
-		await orderStore.fetchOrdersByUserId(userId); // Refresh the orders after deletion
+		await orderStore.fetchOrdersByUserId(userId);
 
-		// Show success alert
 		alertMessage.value = "Order deleted successfully!";
-		alertType.value = "success"; // Set alert type to success
-		showAlert.value = true; // Show alert
+		alertType.value = "success";
+		showAlert.value = true;
 	} catch (error) {
 		console.error("Error deleting order:", error);
-		alertMessage.value = "Failed to delete order. Please try again."; // Set error message
-		alertType.value = "error"; // Set alert type to error
-		showAlert.value = true; // Show alert
+		alertMessage.value = "Failed to delete order. Please try again.";
+		alertType.value = "error";
+		showAlert.value = true;
 	}
 };
 
@@ -269,23 +260,21 @@ const handleUpdateOrder = async () => {
 				product: editOrder.value.product,
 				orderDate: editOrder.value.orderDate,
 			});
-			showEditModal.value = false; // Close edit modal
-			await orderStore.fetchOrdersByUserId(userId); // Refresh orders after update
+			showEditModal.value = false;
+			await orderStore.fetchOrdersByUserId(userId);
 
-			// Show success alert
 			alertMessage.value = "Order updated successfully!";
-			alertType.value = "success"; // Set alert type to success
-			showAlert.value = true; // Show alert
+			alertType.value = "success";
+			showAlert.value = true;
 		}
 	} catch (error) {
 		console.error("Error updating order:", error);
-		alertMessage.value = "Failed to update order. Please try again."; // Set error message
-		alertType.value = "error"; // Set alert type to error
-		showAlert.value = true; // Show alert
+		alertMessage.value = "Failed to update order. Please try again.";
+		alertType.value = "error";
+		showAlert.value = true;
 	}
 };
 
-// Optionally load user data into the form fields
 onMounted(async () => {
 	const user = userStore.users.find((user) => user.id === Number(userId));
 	if (user) {
@@ -293,28 +282,26 @@ onMounted(async () => {
 		email.value = user.email || "";
 		displayName.value = user.fullName || "";
 	}
-
-	// Fetch orders for the user
 	await orderStore.fetchOrdersByUserId(userId);
 });
 </script>
 
 <style scoped>
 .header-container {
-	display: flex;
-	justify-content: space-between; /* Aligns the title and button on the same line */
-	align-items: center; /* Vertically center the items */
-	margin-bottom: 20px; /* Adds space below the header */
+	display: flex
+	justify-content: space-between
+	align-items: center
+	margin-bottom: 20px
 }
 
 .update-title {
-	flex-grow: 1; /* Allows the title to take available space, pushing the button to the right */
+	flex-grow: 1
 }
 
 .orders-header {
 	display: flex;
-	justify-content: space-between; /* Aligns items on either end */
-	align-items: center; /* Vertically centers items */
-	margin-bottom: 20px; /* Adds space below the header */
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 </style>

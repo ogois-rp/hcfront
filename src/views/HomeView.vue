@@ -6,7 +6,7 @@
 				<v-btn class="mt-3" color="primary">Create New User</v-btn>
 			</RouterLink>
 		</div>
-		<!-- Custom Alert Component -->
+
 		<CustomAlert
 			:show="showAlert"
 			:message="alertMessage"
@@ -91,16 +91,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Your styles here */
-
 .header-container {
 	display: flex;
-	justify-content: space-between; /* Aligns the title and button on the same line */
-	align-items: center; /* Vertically center the items */
-	margin-bottom: 20px; /* Adds space below the header */
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .update-title {
-	flex-grow: 1; /* Allows the title to take available space, pushing the button to the right */
+	flex-grow: 1;
 }
 </style>

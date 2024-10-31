@@ -20,7 +20,7 @@ export const createUser = async (newUser: NewUser): Promise<User | null> => {
 		const response = await axiosInstance.post("/users", newUser);
 		return response.data;
 	} catch (error) {
-		throw error; // Return null in case of error
+		throw error;
 	}
 };
 
@@ -30,7 +30,7 @@ export const getUserById = async (id: number): Promise<User | null> => {
 		const response = await axiosInstance.get(`/users/${id}`);
 		return response.data;
 	} catch (error) {
-		throw error; // Return null in case of error
+		throw error;
 	}
 };
 

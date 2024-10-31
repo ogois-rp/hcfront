@@ -5,7 +5,7 @@
 		dismissible
 		@input="handleDismiss"
 		class="fade-alert narrow-alert"
-		style="position: fixed; top: 80px; right: 20px; width: 30%"
+		style="position: fixed top: 80px right: 20px width: 30%"
 	>
 		<slot>{{ message }}</slot>
 	</v-alert>
@@ -22,13 +22,13 @@ const props = defineProps({
 	},
 	type: {
 		type: String,
-		default: "success", // Default to success type
+		default: "success",
 		validator: (value) =>
 			["success", "error", "info", "warning"].includes(value),
 	},
 	duration: {
 		type: Number,
-		default: 3000, // Default duration for auto-dismiss
+		default: 3000,
 	},
 	show: {
 		type: Boolean,
@@ -36,14 +36,12 @@ const props = defineProps({
 	},
 });
 
-// Emit event to handle dismissal
 const emit = defineEmits(["dismiss"]);
 
 const handleDismiss = () => {
-	emit("dismiss"); // Emit the dismiss event
+	emit("dismiss");
 };
 
-// Automatically hide the alert after the specified duration
 if (props.show) {
 	setTimeout(() => {
 		handleDismiss();
@@ -57,6 +55,6 @@ if (props.show) {
 }
 
 .narrow-alert {
-	max-width: 300px; /* Adjust width as needed */
+	max-width: 300px;
 }
 </style>
