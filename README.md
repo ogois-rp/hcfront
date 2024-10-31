@@ -2,7 +2,7 @@
 
 clone project to your folder
 
-setup .env with the following:
+setup .env with the following (at the root of project):
 
 ```env
 VITE_API_BASE_URL=http://localhost:3333
