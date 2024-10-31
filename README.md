@@ -1,5 +1,7 @@
 # hcfront
 
+clone project to your folder
+
 setup .env with the following:
 
 ```env
