@@ -1,14 +1,19 @@
-import { fileURLToPath, URL } from 'node:url'
-
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from "node:url";
+import Icons from "unplugin-icons/vite";
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [Vue()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-})
+	plugins: [
+		vue(),
+		Icons({
+			autoInstall: true,
+		}),
+	],
+	resolve: {
+		alias: {
+			"@": fileURLToPath(new URL("./src", import.meta.url)),
+		},
+	},
+});
