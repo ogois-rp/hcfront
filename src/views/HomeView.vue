@@ -6,6 +6,13 @@
 				<v-btn class="mt-3" color="primary">Create New User</v-btn>
 			</RouterLink>
 		</div>
+		<!-- Custom Alert Component -->
+		<CustomAlert
+			:show="showAlert"
+			:message="alertMessage"
+			:type="alertType"
+			@dismiss="handleAlertDismiss"
+		/>
 		<CustomDataTable :headers="headers" :items="users">
 			<template #createdAt="{ item }">
 				<DateDisplay :date="item.createdAt" />
@@ -35,6 +42,7 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/useUserStore";
 import DateDisplay from "@/components/DateDisplay.vue";
 import CustomDataTable from "@/components/CustomDataTable.vue";
+import CustomAlert from "@/components/CustomAlert.vue";
 
 const userStore = useUserStore();
 const headers = ref([
@@ -48,12 +56,33 @@ const headers = ref([
 const router = useRouter();
 const users = computed(() => userStore.users);
 
+const showAlert = ref(false);
+const alertMessage = ref("");
+const alertType = ref("success");
+
 const loadData = async () => {
 	await userStore.loadUsers();
 };
 
 const handleDeleteUser = async (id: number) => {
-	await userStore.removeUser(id);
+	try {
+		await userStore.removeUser(id);
+		alertMessage.value = "User deleted successfully!";
+		alertType.value = "success";
+	} catch (error) {
+		console.error("Error deleting user:", error);
+		alertMessage.value = "Failed to delete user. Please try again.";
+		alertType.value = "error";
+	} finally {
+		showAlert.value = true;
+		setTimeout(() => {
+			handleAlertDismiss();
+		}, 2000);
+	}
+};
+
+const handleAlertDismiss = () => {
+	showAlert.value = false;
 };
 
 onMounted(() => {

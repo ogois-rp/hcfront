@@ -24,6 +24,7 @@ export const useOrderStore = defineStore("order", () => {
 			orders.value = data || [];
 		} catch (err) {
 			error.value = "Error fetching orders";
+			throw err;
 		} finally {
 			loading.value = false;
 		}
@@ -37,6 +38,7 @@ export const useOrderStore = defineStore("order", () => {
 			order.value = data;
 		} catch (err) {
 			error.value = "Error fetching order";
+			throw err;
 		} finally {
 			loading.value = false;
 		}
@@ -54,6 +56,7 @@ export const useOrderStore = defineStore("order", () => {
 			orders.value.push(data as Order);
 		} catch (err) {
 			error.value = "Error creating order";
+			throw err;
 		} finally {
 			loading.value = false;
 		}
@@ -67,7 +70,7 @@ export const useOrderStore = defineStore("order", () => {
 			orders.value = orders.value.filter((order) => order.id !== id);
 		} catch (err) {
 			error.value = "Error deleting order";
-			throw error;
+			throw err;
 		} finally {
 			loading.value = false;
 		}
@@ -86,7 +89,7 @@ export const useOrderStore = defineStore("order", () => {
 			);
 		} catch (err) {
 			error.value = "Error updating order";
-			throw error;
+			throw err;
 		} finally {
 			loading.value = false;
 		}
