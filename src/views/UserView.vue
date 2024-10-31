@@ -288,14 +288,14 @@ onMounted(async () => {
 
 <style scoped>
 .header-container {
-	display: flex
-	justify-content: space-between
-	align-items: center
-	margin-bottom: 20px
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .update-title {
-	flex-grow: 1
+	flex-grow: 1;
 }
 
 .orders-header {
